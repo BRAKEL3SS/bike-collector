@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Bike
+from .forms import OilChangeForm
 
 # Create your views here.
 
@@ -17,7 +18,16 @@ def bikes_index(request):
 
 def bikes_detail(request, bike_id):
     bike = Bike.objects.get(id=bike_id)
-    return render(request, 'bikes/detail.html', { 'bike': bike})
+    oilchange_form = OilChangeForm()
+    return render(request, 'bikes/detail.html', { 'bike': bike, 'oilchange_form': oilchange_form})
+
+def add_oilchange(request, bike_id):
+    form = OilChangeForm(request.POST)
+    if form.is_valid():
+        new_change = form.save(commit=False)
+        new_change.bike_id = bike_id
+        new_change.save()
+    return redirect('detail', bike_id=bike_id)
 
 class BikeCreate(CreateView):
     model=Bike

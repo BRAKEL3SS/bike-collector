@@ -22,3 +22,6 @@ class OilChange(models.Model):
 
     def __str__(self):
         return f"{self.filterChange} filter on {self.date}"
+
+    class Meta:
+        ordering = ['-date']
