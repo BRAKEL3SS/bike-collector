@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class Bike(models.Model):
@@ -8,3 +9,16 @@ class Bike(models.Model):
 
     def __str__(self):
         return self.model
+
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'bike_id': self.id})
+
+
+class OilChange(models.Model):
+    date = models.DateField()
+    filter = models.BooleanField(default=False)
+    bike = models.ForeignKey(Bike, on_delete=models.CASCADE)
+
+
+    def __str__(self):
+        return f"{self.filter} filter on {self.date}"
