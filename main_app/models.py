@@ -16,9 +16,9 @@ class Bike(models.Model):
 
 class OilChange(models.Model):
     date = models.DateField()
-    filter = models.BooleanField(default=False)
+    filterChange = models.BooleanField('Oil Filter Change', default=False)
     bike = models.ForeignKey(Bike, on_delete=models.CASCADE)
 
 
     def __str__(self):
-        return f"{self.filter} filter on {self.date}"
+        return f"{self.filterChange} filter on {self.date}"
