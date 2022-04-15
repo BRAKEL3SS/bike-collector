@@ -10,7 +10,7 @@ class Socket(models.Model):
         return self.size
     
     def get_absolute_url(self):
-        return reverse('sockets_detail', kwargs={'pk': self.id})
+        return reverse('sockets_index')
 
 
 class Bike(models.Model):

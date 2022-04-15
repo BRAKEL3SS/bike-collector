@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Socket List</h1>
+
+{% for socket in socket_list %}
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">{{ socket.size }}</span>
+            <p>Drive: {{ socket.drive }}</p>
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}

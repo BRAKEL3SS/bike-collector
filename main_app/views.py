@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Bike
+from django.views.generic import ListView, DetailView
+from .models import Bike, Socket
 from .forms import OilChangeForm
 
 # Create your views here.
@@ -40,3 +41,10 @@ class BikeUpdate(UpdateView):
 class BikeDelete(DeleteView):
     model=Bike
     success_url = '/bikes'
+
+class Socketlist(ListView):
+    model = Socket
+
+class SocketCreate(CreateView):
+    model = Socket
+    fields = '__all__'
