@@ -19,8 +19,10 @@ def bikes_index(request):
 
 def bikes_detail(request, bike_id):
     bike = Bike.objects.get(id=bike_id)
+    id_list = bike.tools.all().values_list('id')
+    sockets_bike_doesnt_have = Socket.objects.exclude(id__in=id_list)
     oilchange_form = OilChangeForm()
-    return render(request, 'bikes/detail.html', { 'bike': bike, 'oilchange_form': oilchange_form})
+    return render(request, 'bikes/detail.html', { 'bike': bike, 'oilchange_form': oilchange_form, 'sockets': sockets_bike_doesnt_have})
 
 def add_oilchange(request, bike_id):
     form = OilChangeForm(request.POST)
