@@ -8,7 +8,7 @@ from .forms import OilChangeForm
 # Create your views here.
 
 def home(request):
-    return HttpResponse('<h1>hello</h1>')
+    return render(request, 'home.html')
 
 def about(request):
     return render(request, 'about.html')
@@ -32,9 +32,13 @@ def add_oilchange(request, bike_id):
         new_change.save()
     return redirect('detail', bike_id=bike_id)
 
+def assoc_tool(request, bike_id, socket_id):
+    Bike.objects.get(id=bike_id).tools.add(socket_id)
+    return redirect('detail', bike_id=bike_id)
+
 class BikeCreate(CreateView):
     model=Bike
-    fields = '__all__'
+    fields = ['model', 'brand', 'hours']
 
 class BikeUpdate(UpdateView):
     model=Bike

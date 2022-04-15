@@ -11,5 +11,6 @@ urlpatterns = [
     path('bikes/<int:pk>/delete/', views.BikeDelete.as_view(), name='bikes_delete'),
     path('bikes/<int:bike_id>/add_oilchange/', views.add_oilchange, name='add_oilchange'),
     path('sockets/', views.Socketlist.as_view(), name='sockets_index'),
-    path('sockets/create/', views.SocketCreate.as_view(), name='sockets_create')
+    path('sockets/create/', views.SocketCreate.as_view(), name='sockets_create'),
+    path('bikes/<int:bike_id>/assoc_tool/<int:socket_id>/', views.assoc_tool, name='assoc_tool')
 ]
