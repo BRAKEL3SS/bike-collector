@@ -14,26 +14,36 @@
 <body>
   <header class="navbar-fixed">
     <nav>
-      <div class="nav-wrapper">
+      <div class="nav-wrapper black white-text">
         <ul>
           <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Bike Collector</a></li>
         </ul>
-        <ul class="right">
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
           <li><a href="{% url 'about' %}">About</a></li>
-          <li><a href="{% url 'sockets_create' %}">Add A Socket</a></li>
-          <li><a href="{% url 'sockets_index' %}">View All Sockets</a></li>
           <li><a href="{% url 'bikes_create' %}">Add A Bike</a></li>
           <li><a href="{% url 'index' %}">View All Bikes</a></li>
         </ul>
       </div>
     </nav>
+    <ul class="sidenav" id="mobile-demo">
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="{% url 'bikes_create' %}">Add A Bike</a></li>
+        <li><a href="{% url 'index' %}">View All Bikes</a></li>
+    </ul>
   </header>
   <main class="container">
     {% block content %}
     {% endblock %}
   </main>
-  <footer class="page-footer">
+  <footer class="page-footer black white-text">
     <div class="right">All Rights Reserved, &copy; 2022 Bike Collector &nbsp;</div>
   </footer>
+  <script>
+      document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.sidenav');
+    var instances = M.Sidenav.init(elems, options);
+  });
+  </script>
 </body>
 </html>

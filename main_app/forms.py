@@ -1,7 +1,7 @@
 from django.forms import ModelForm
-from .models import OilChange
+from .models import Maintenance
 
-class OilChangeForm(ModelForm):
+class MaintenanceForm(ModelForm):
   class Meta:
-    model = OilChange
-    fields = ['date', 'filterChange']
+    model = Maintenance
+    fields = ['date', 'maintenance']

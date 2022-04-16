@@ -7,13 +7,16 @@
   <div class="col s6">
     <div class="card">
       <div class="card-content">
-        <span class="card-title">{{ bike.model }}</span>
+        <span class="card-title">{{bike.owner}}'s {{ bike.model }}</span>
         <p>Brand: {{ bike.brand }}</p>
         {% if bike.hours > 0 %}
           <p>Hours: {{ bike.hours }}</p>
         {% else %}
           <p>Hours: Brand New!</p>
         {% endif %}
+        <p>VIN: {{bike.vin}}</p>
+        <p>Head Number: {{bike.headNo}}</p>
+        <p>Case Number: {{bike.caseNo}}</p>
       </div>
       <div class="card-action">
         <a href="{% url 'bikes_update' bike.id %}">Edit</a>
@@ -22,68 +25,28 @@
     </div>
   </div>
   <div class="col s6">
-    <form method="POST" action="{% url 'add_oilchange' bike.id %}">
+    <form method="POST" action="{% url 'add_maintenance' bike.id %}">
         {% csrf_token %}
-        {{ oilchange_form.as_p }}
+        {{ maintenance_form.as_p }}
         <span></span>
-        <input type="submit" class="btn" value="Add Oil Change">
+        <input type="submit" class="btn" value="Add Maintenance">
     </form>
     <table class="striped">
       <thead>
-        <tr><th>Date</th><th>Filter Change</th></tr>
+        <tr><th>Date</th><th>Work Done</th></tr>
       </thead>
       <tbody>
-        {% for oil in bike.oilchange_set.all %}
+        {% for maintenance in bike.maintenance_set.all %}
           <tr>
-            <td>{{oil.date}}</td>
-            <td>{{oil.filterChange}}</td>
+            <td>{{maintenance.date}}</td>
+            <td>{{maintenance.maintenance}}</td>
           </tr>
         {% endfor %}
       </tbody>
     </table>
   </div>
 </div>
-<hr>
-<div class="row">
-  <div class="col s6">
-    <h3>{{ bike.model }}'s Tools</h3>
-    {% if bike.tools.count %}
-      {% for socket in bike.tools.all %}
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title">
-              A {{ socket.size }}mm with a {{ socket.drive }} ratchet
-            </span>
-          </div>
-        </div>
-      {% endfor %}
-    {% else %}
-      <h5>No Tools :(</h5>
-    {% endif %}
-  </div>
-  <div class="col s6">
-    <h3>Available Tools</h3>
-    {% if sockets.count %}
-      {% for socket in sockets.all %}
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title">
-              A {{ socket.size }}mm with a {{ socket.drive }} ratchet
-            </span>
-          </div>
-          <div class="card-action">
-            <form action="{% url 'assoc_tool' bike.id socket.id %}" method="POST">
-              {% csrf_token %}
-              <button type="submit" class="btn">Add</button>
-            </form>
-          </div>
-        </div>
-      {% endfor %}
-    {% else %}
-      <h5>{{bike.model}} Already Has All Tools Available</h5>
-    {% endif %}
-  </div>
-</div>
+
 <script>
     const dateEl = document.getElementById('id_date');
   M.Datepicker.init(dateEl, {

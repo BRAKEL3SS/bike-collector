@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from .models import Bike, Socket
-from .forms import OilChangeForm
+from .forms import MaintenanceForm
 
 # Create your views here.
 
@@ -21,11 +21,11 @@ def bikes_detail(request, bike_id):
     bike = Bike.objects.get(id=bike_id)
     id_list = bike.tools.all().values_list('id')
     sockets_bike_doesnt_have = Socket.objects.exclude(id__in=id_list)
-    oilchange_form = OilChangeForm()
-    return render(request, 'bikes/detail.html', { 'bike': bike, 'oilchange_form': oilchange_form, 'sockets': sockets_bike_doesnt_have})
+    maintenance_form = MaintenanceForm()
+    return render(request, 'bikes/detail.html', { 'bike': bike, 'maintenance_form': maintenance_form, 'sockets': sockets_bike_doesnt_have})
 
-def add_oilchange(request, bike_id):
-    form = OilChangeForm(request.POST)
+def add_maintenance(request, bike_id):
+    form = MaintenanceForm(request.POST)
     if form.is_valid():
         new_change = form.save(commit=False)
         new_change.bike_id = bike_id
@@ -38,7 +38,7 @@ def assoc_tool(request, bike_id, socket_id):
 
 class BikeCreate(CreateView):
     model=Bike
-    fields = ['model', 'brand', 'hours']
+    fields = ['model', 'brand', 'hours', 'vin', 'headNo', 'caseNo', 'owner']
 
 class BikeUpdate(UpdateView):
     model=Bike

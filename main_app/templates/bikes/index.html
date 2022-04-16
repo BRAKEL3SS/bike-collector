@@ -7,7 +7,7 @@
   <div class="card">
       <a href="{% url 'detail' bike.id%}">
         <div class="card-content">
-        <span class="card-title">{{ bike.model }}</span>
+        <span class="card-title">{{bike.owner}}'s {{ bike.model }}</span>
             <p>Manufacturer: {{ bike.brand }}</p>
             {% if bike.hours == 0 %}
                 <p>Hours: Brand New!</p>
